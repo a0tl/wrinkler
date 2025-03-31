@@ -1,14 +1,16 @@
-.architect
-bootstrap.css
-bootstrap.js
-bootstrap.json
-bootstrap.jsonp
-build/
-classic.json
-classic.jsonp
-ext/
-modern.json
-modern.jsonp
-resources/sass/.sass-cache/
-resources/.arch-internal-preview.css
-.arch-internal-preview.css
+(function() {
+    var isReady = setInterval(function() {
+        if (typeof Game.ready !== 'undefined' && Game.ready) {
+            function killingWrinklers() {
+                for (let i=0; i < Game.getWrinklersMax(); i++) {
+                    if (Game.wrinklers[i].type == 0 && Game.wrinklers[i].hp > 0) {
+                        Game.wrinklers[i].hp = 0;
+                        Game.Notify(Game.wrinklersPopped, 'Total wrinklers Popped', [28,11], 1, 1);
+                    }
+                }
+            }
+            setInterval(killingWrinklers, 100);
+            clearInterval(isReady);
+        }
+    }, 1000);
+})();
